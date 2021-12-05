@@ -41,6 +41,7 @@ public class UsingClassObject {
             
             try
             {
+                // Obtenemos el objeto Class que referencia la clase introducida como cadena
                 clase = Class.forName(name);
                 
                 // Cabecera
@@ -78,8 +79,10 @@ public class UsingClassObject {
                 System.out.println("La clase tiene los siguientes campos: \n");
                 if(clase.getFields().length != 0)
                 {
+                    // Para cada campo contenido en el array que devuelve el metodo getFields()
                     for(Field f: clase.getFields())
                     {
+                        // Mostramos nombre, tipo, descripcion generica y descripcion normal
                         System.out.println("\tNombre del campo: " + f.getName() + "\n" +
                                 "\tTipo del campo: " + f.getType() + "\n" +
                                 "\tDescripcion generica del campo: " + f.toGenericString() + "\n" +
@@ -88,6 +91,7 @@ public class UsingClassObject {
                 }
                 else
                 {
+                    // Se informa si no hay campos publicos accesibles
                     System.out.println("\tLa clase no posee campos publicos, y por lo tanto no se puede acceder a ellos.");
                 }
                 
@@ -95,12 +99,15 @@ public class UsingClassObject {
                 System.out.println("La clase tiene el/los sieguiente/s constructores: \n");
                 if(clase.getConstructors().length != 0)
                 {
+                    // Para cada constructor que posea la clase
                     for(Constructor<?> c: clase.getConstructors())
                     {
+                        // Mostramos nombre, numero de parametros, tipo de parametros...
                         System.out.println("\tNombre del constructor: " + c.getName() + "\n" +
                                 "\tNumero de parametros: " + c.getParameterCount() + "\n" +
                                 "\tTipos de los parametros: ");
                         
+                        // Aqui obtenemos el listado de parametros en un array que recorremos
                         if(c.getParameterCount() > 0)
                         {
                             for(Class<?> cl: c.getParameterTypes())
@@ -110,9 +117,11 @@ public class UsingClassObject {
                         }
                         else
                         {
+                            // Aviso si no hay parametros
                             System.out.println("\t\tEl constructor no tiene parametros");
                         }
                         
+                        // ... descripcion generica, y normal
                         System.out.println("\tDescripcion generica: " + c.toGenericString() + "\n" +
                                 "\tDescripcion: " + c.toString() + "\n");
                     }
@@ -126,8 +135,12 @@ public class UsingClassObject {
                 System.out.println("La clase tiene el/los sieguiente/s metodos: \n");
                 if(clase.getMethods().length != 0) // Comprobacion sin sentido, todos los objetos tiene al menos un metodo heredado de Object en ultima instancia
                 {
+                    // Para cada metodo de la clase
                     for(Method m: clase.getMethods())
                     {
+                        // Mostramos nombre, numero de parametros, si es un metodo bridge,
+                        // por defecto, sintetico, con argumentos variables, descripcion generica
+                        // y descripcion normal.
                         System.out.println("\tNombre del metodo: " + m.getName() + "\n" +
                                 "\tNumero de parametros: " + m.getParameterCount() + "\n" + 
                                 (m.isBridge()? "\tEl metodo es un metodo bridge\n" : "") +
@@ -140,9 +153,10 @@ public class UsingClassObject {
                 }
                 else
                 {
+                    // Aviso si no hay metodos (Se supone imposible, siempre se hereda algun metodo de Object
                     System.out.println("\tLa clase no tiene metodos");
                 }
-            }
+            }// Tratamiento de excepciones
             catch(ClassNotFoundException cnfex)
             {
                 System.out.println("La clase introducida no existe");
@@ -157,6 +171,7 @@ public class UsingClassObject {
                 sc.nextLine();
             }
             
+            // Pregunta para salir del programa
             System.out.print("\n¿Desea ver la informacion de otra clase? (Si para confirmar): ");
             name = sc.nextLine();
             
